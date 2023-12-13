@@ -29,7 +29,7 @@ class controllerUser
 
         if(empty($password)) {
             $_SESSION['passwordError']= "password is required";
-        } elseif (strlen($password) < 9) {
+        } elseif (strlen($password) < 7) {
             $_SESSION['passwordError']= "at least 8 caract";
         }else{
             $_SESSION['passwordError']="";
@@ -44,9 +44,10 @@ class controllerUser
         // $this->validation($f_name,$l_name,$email,$password,$profile,$repeatPassword);
 
         if(empty($_SESSION['f_namError']) && empty($_SESSION['l_namError']) && empty($_SESSION['emailError']) && empty($_SESSION['passwordError']) && empty($_SESSION['confirm_password_Error'])){
+            $password = password_hash($password,PASSWORD_BCRYPT);
             $m_user= new user($f_name,$l_name,$email,$password,$profile);
             $m_user->createUser();
-            $this->redirect("../../View/admin/dashboard.php");
+            $this->redirect("../../index.php");
         }
             
 
@@ -94,7 +95,59 @@ class controllerUser
         header("Location: $url");
     }
 
-    
+    public function logout() {
+        session_start();
+        session_unset();
+        $this->redirect("../../View/auth/login.php");
+    }
+
+
+
+    public function login($email,$password){
+
+        if(empty($email)) {
+            $_SESSION['emailError'] = "email is required";
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['emailError']="invalid email";
+        }else{
+            $_SESSION['emailError']="";
+        }
+
+        if(empty($password)) {
+            $_SESSION['passwordError']= "password is required";
+        } elseif (strlen($password) < 9) {
+            $_SESSION['passwordError']= "at least 8 caract";
+        }else{
+            $_SESSION['passwordError']="";
+        }
+
+
+        if(empty($_SESSION['passwordError']) && empty($_SESSION['emailError'])){
+
+        $m_user= new user(null,null,$email,$password,null);
+        $row = $m_user->getUserByEmail();
+        if($row){
+            if(password_verify($password, $row['password'])){
+
+                $_SESSION['userId'] = $row['id'];
+                $_SESSION['isAdmin'] = $row['isAdmin'];
+                $_SESSION['loggedIn'] = true;
+
+                if($row['isAdmin']){
+                    $this->redirect("../../View/admin/dashboard.php");    
+                }else{
+                $this->redirect("../../index.php"); 
+                }
+            }
+            
+        }
+       
+        }
+
+
+    }
+
+
 }
 
 
