@@ -1,5 +1,5 @@
 <?php
-include '../../Controller/auth/user.php';
+include '../../Controller/auth/userController.php';
 $c_user = new controllerUser();
 
 if(isset($_POST['submit'])){

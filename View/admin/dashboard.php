@@ -1,3 +1,17 @@
+<?php
+include '../../Controller/auth/userController.php';
+$c_user = new controllerUser();
+
+if(!$_SESSION['loggedIn']){
+    $c_user->redirect("../auth/login.php");
+}elseif(!$_SESSION['isAdmin']){
+   echo "<script>alert(\"only admin can acces  \")</script>";
+   $c_user->redirect("../auth/login.php");
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
