@@ -1,12 +1,13 @@
 <?php
 include '../../Controller/auth/userController.php';
+
 $c_user = new controllerUser();
 
 if(isset($_POST['submit'])){
 
     $email = $_POST['email'];
     $password = $_POST['password'];
-   
+
     $c_user->login($email,$password);
 }
 

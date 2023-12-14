@@ -26,7 +26,7 @@ class user {
         $result = mysqli_stmt_execute($stmt);
     }
     
-    function getUserByEmail(){
+    public function getUserByEmail(){
         $sql = "SELECT * from users where email=?";
         $stmt = mysqli_prepare($this->connection,$sql);
         mysqli_stmt_bind_param($stmt,'s',$this->email);

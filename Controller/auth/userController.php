@@ -62,9 +62,9 @@ class controllerUser
     }
 
     public function logout() {
-        // session_start();
         session_unset();
         $this->redirect("../../View/auth/login.php");
+        exit();
     }
 
 
@@ -94,7 +94,6 @@ class controllerUser
         $row = $m_user->getUserByEmail();
         if($row){
             if(password_verify($password, $row['password'])){
-
                 $_SESSION['userId'] = $row['id'];
                 $_SESSION['isAdmin'] = $row['isAdmin'];
                 $_SESSION['loggedIn'] = true;
