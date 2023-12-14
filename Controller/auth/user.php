@@ -96,7 +96,7 @@ class controllerUser
     }
 
     public function logout() {
-        session_start();
+        // session_start();
         session_unset();
         $this->redirect("../../View/auth/login.php");
     }
@@ -106,23 +106,23 @@ class controllerUser
     public function login($email,$password){
 
         if(empty($email)) {
-            $_SESSION['emailError'] = "email is required";
+            $_SESSION['emailErr'] = "email is required";
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['emailError']="invalid email";
+            $_SESSION['emailErr']="invalid email";
         }else{
-            $_SESSION['emailError']="";
+            $_SESSION['emailErr']="";
         }
 
         if(empty($password)) {
-            $_SESSION['passwordError']= "password is required";
-        } elseif (strlen($password) < 9) {
-            $_SESSION['passwordError']= "at least 8 caract";
-        }else{
-            $_SESSION['passwordError']="";
+            $_SESSION['passwordErr']= "password is required";
+        }  elseif (strlen($password) < 9) {
+             $_SESSION['passwordError']= "at least 8 caract";
+         }else{
+            $_SESSION['passwordErr']="";
         }
 
 
-        if(empty($_SESSION['passwordError']) && empty($_SESSION['emailError'])){
+        if(empty($_SESSION['passwordErr']) && empty($_SESSION['emailErr'])){
 
         $m_user= new user(null,null,$email,$password,null);
         $row = $m_user->getUserByEmail();
@@ -140,6 +140,8 @@ class controllerUser
                 }
             }
             
+        }else{
+            echo "<script>alert(\"this email doesn't existe!!!!! \")</script>";
         }
        
         }
