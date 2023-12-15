@@ -36,6 +36,48 @@ class user {
         return $row;
     }
 
+
+    public function getFName() {
+        return $this->f_name;
+    }
+
+    public function getLName() {
+        return $this->l_name;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function getProfile() {
+        return $this->profile;
+    }
+
+    // Setters
+    public function setFName($f_name) {
+        $this->f_name = $f_name;
+    }
+
+    public function setLName($l_name) {
+        $this->l_name = $l_name;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+    public function setProfile($profile) {
+        $this->profile = $profile;
+    }
+
 }
 
 
