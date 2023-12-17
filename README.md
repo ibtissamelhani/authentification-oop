@@ -1,4 +1,5 @@
 #Authentification PHP avec OOP et MVC
+
 Ce projet est une implémentation d'un système d'authentification en utilisant PHP orienté objet (OOP) et le modèle MVC. 
 Il est conçu pour fournir une base solide pour l'ajout de fonctionnalités d'authentification à d'autres projets PHP.
 
